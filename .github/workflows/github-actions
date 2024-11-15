@@ -22,4 +22,4 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME}}/kucl22:actions
+          tags: ${{ secrets.DOCKERHUB_USERNAME}}/kucl:actions

@@ -27,12 +27,12 @@ jobs:
           tags: ${{ secrets.DOCKERHUB_USERNAME}}/kucl2:actions
   deploy:
     needs: docker_1
-    name: k8s deployment
-    runs-on: ubuntu-latest  # You might want to use an appropriate label like 'kucl2' here if required
+    name: k8s deployment 
+    runs-on: 
+      labels: kucl2
     steps:
-      - name: Set up kubeconfig
+      - name: create deployment
         run: |
-          mkdir -p ${HOME}/.kube
-          echo ${{ secrets.MYKUBECONFIG }} | base64 --decode > ${HOME}/.kube/config
-      - name: Create Kubernetes Deployment
-        run: kubectl create deployment githubaction --image=docker.io/${{ secrets.DOCKERHUB_USERNAME }}/kucl2:actions
+         mkdir ${HOME}/.kube -p
+         echo "${{secrets.KUBECONFIG}}" | base64  --decode > ${HOME}/.kube/config
+         kubectl create deployment githubaction --image=docker.io/httpd

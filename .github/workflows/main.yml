@@ -24,12 +24,15 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME}}/kucl2:actions
+          tags: ${{ secrets.DOCKERHUB_USERNAME}}/kucl22:actions
   deploy:
     needs: docker_1
-    name: deploy image
+    name: k8s deployment 
     runs-on: 
       labels: kucl2
     steps:
-      - name: pull and run 
-        run: ssh ${{ secrets.S_USER }}@${{ secrets.D_HOST }} "docker run -d ${{ secrets.DOCKERHUB_USERNAME}}/kucl2:actions"
+      - name: create deployment
+      # mkdir ${HOME}/.kube
+      #  echo ${{MYKUBECONFIG}} | base64  --decode > ${HOME}./kube/config
+        
+        run: kubectl create deployment githubaction --image=docker.io/httpd
